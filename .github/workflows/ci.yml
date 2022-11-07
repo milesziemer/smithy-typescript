@@ -2,13 +2,13 @@ name: ci
 
 on:
   push:
-    branches: [main]
+    branches: [test-windows-ci]
   pull_request:
-    branches: [main]
+    branches: [test-windows-ci]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     name: Java ${{ matrix.java }}
     strategy:
       matrix:
@@ -27,7 +27,7 @@ jobs:
         run: ./gradlew clean build -Plog-tests
 
   lint-typescript:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     name: TypeScript Lint
     steps:
       - uses: actions/checkout@v2
@@ -40,7 +40,7 @@ jobs:
         run: cd smithy-typescript-ssdk-libs && yarn lint
 
   test-typescript:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     name: TypeScript Test
     steps:
       - uses: actions/checkout@v2
@@ -53,7 +53,7 @@ jobs:
         run: cd smithy-typescript-ssdk-libs && yarn test
 
   ensure-typescript-formatted:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     name: Ensure TypeScript is formatted
     steps:
       - uses: actions/checkout@v2
