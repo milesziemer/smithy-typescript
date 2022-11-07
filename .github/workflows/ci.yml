@@ -24,7 +24,7 @@ jobs:
           distribution: 'zulu'
 
       - name: clean and build
-        run: ./gradlew clean build -Plog-tests
+        run: ./gradlew clean build -Plog-tests --stacktrace
 
   lint-typescript:
     runs-on: windows-latest
