@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.containsString;
 import org.junit.jupiter.api.Test;
 import software.amazon.smithy.build.MockManifest;
 import software.amazon.smithy.build.PluginContext;
-import software.amazon.smithy.codegen.core.SymbolProvider;
 import software.amazon.smithy.model.Model;
 import software.amazon.smithy.model.loader.ModelAssembler;
 import software.amazon.smithy.model.node.Node;
@@ -525,7 +524,7 @@ public class StructureGeneratorTest {
                 .build();
 
         new TypeScriptCodegenPlugin().execute(context);
-        String contents = manifest.getFileString(CodegenUtils.SOURCE_FOLDER + "//models/models_0.ts").get();
+        String contents = manifest.getFileString(CodegenUtils.SOURCE_FOLDER + "/models/models_0.ts").get();
 
         assertThat(contents, containsString(expectedType));
         return contents;
