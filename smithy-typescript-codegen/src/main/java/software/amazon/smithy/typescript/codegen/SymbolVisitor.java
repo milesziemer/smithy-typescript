@@ -477,11 +477,8 @@ final class SymbolVisitor implements SymbolProvider, ShapeVisitor<Symbol> {
                     .filter(namespace -> namespace.startsWith(modelPrefix))
                     .distinct()
                     .sorted(Comparator.naturalOrder())
-                            .forEach(namespace -> {
-                                String relativeNamespace = namespace.replaceFirst(
-                                        Matcher.quoteReplacement(modelPrefix), ".");
-                                writer.write("export * from $S;", relativeNamespace);
-                            });
+                    .map(namespace -> namespace.replaceFirst(Matcher.quoteReplacement(modelPrefix), "."))
+                    .forEach(namespace -> writer.write("export * from $S;", namespace));
             fileManifest.writeFile(
                     Paths.get(CodegenUtils.SOURCE_FOLDER, SHAPE_NAMESPACE_PREFIX, "index.ts").toString(),
                     writer.toString());
