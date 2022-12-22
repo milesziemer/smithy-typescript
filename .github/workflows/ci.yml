@@ -8,11 +8,12 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
-    name: Java ${{ matrix.java }}
+    runs-on: ${{ matrix.os }}
+    name: Java ${{ matrix.java }} ${{ matrix.os }}
     strategy:
       matrix:
         java: [8, 11]
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
       - uses: actions/checkout@v3
@@ -27,8 +28,11 @@ jobs:
         run: ./gradlew clean build -Plog-tests --stacktrace
 
   lint-typescript:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
     name: TypeScript Lint
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -40,8 +44,11 @@ jobs:
         run: cd smithy-typescript-ssdk-libs && yarn lint
 
   test-typescript:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
     name: TypeScript Test
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -53,8 +60,11 @@ jobs:
         run: cd smithy-typescript-ssdk-libs && yarn test
 
   ensure-typescript-formatted:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
     name: Ensure TypeScript is formatted
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
